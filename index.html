@@ -1881,6 +1881,244 @@ tips:[
 ]
 }
 ]
+},
+// ═══════════════════════════════════════════
+// CHAPITRE 12 : MONTER SUR UN HDD
+// ═══════════════════════════════════════════
+{
+id:12,title:"Monter sur un HDD (sans SSD)",color:"c10",
+desc:"Si tu n'as pas de SSD externe et que tu travailles directement sur un disque dur mécanique (HDD), ce chapitre t'explique comment tirer le meilleur parti de FCP grâce aux proxys. C'est LA solution pour monter de la 4K sur un HDD sans saccade.",
+lessons:[
+{
+title:"Pourquoi le HDD est lent (et comment s'en sortir)",emoji:"🐢",
+sum:"Un HDD lit à ~130 Mo/s, la 4K D-Log M demande ~200+ Mo/s en lecture fluide. La solution : les proxys FCP.",
+detail:`<p><strong>LE PROBLÈME :</strong> Un HDD mécanique (comme le LaCie Rugged USB-C) lit les données à environ 130 Mo/s. C'est suffisant pour du 4K simple, mais dès que tu empiles des effets, une LUT, de l'étalonnage, et du 4K 60fps, FCP a besoin de plus de débit que ce que le HDD peut fournir. Résultat : saccades, lag, timeline qui rame.</p>
+
+<p><strong>LA SOLUTION : LES PROXYS</strong></p>
+<p>Les proxys sont des copies ultra-légères de tes rushes. FCP crée des fichiers en ProRes Proxy (très petit, très rapide) que même un HDD gère sans aucun problème. Tu montes avec les proxys (image un peu moins nette mais c'est juste pour le montage), et quand tu exportes, FCP utilise automatiquement les fichiers originaux en pleine qualité 4K.</p>
+
+<p><strong>En résumé :</strong> Tu vois une image allégée pendant le montage, mais ton export final est en pleine qualité 4K D-Log M. Aucun compromis sur le résultat final.</p>`,
+tips:[
+{type:"pro",text:"Les proxys sont la méthode officielle recommandée par Apple pour monter sur des disques lents. C'est pas un hack, c'est fait pour ça."},
+{type:"you",text:"Avec ton M4 Max, la création des proxys sera très rapide (quelques minutes pour 30 Go de rushes). Le processeur mouline en arrière-plan pendant que tu commences déjà à dérusher."},
+{type:"warn",text:"Les proxys prennent de l'espace disque supplémentaire, mais beaucoup moins que les originaux (environ 5-10x plus légers). Sur un HDD 2 To, tu as largement la place."}
+]
+},
+{
+title:"WORKFLOW COMPLET — Import et montage sur HDD",emoji:"🔧",
+sum:"Le pas à pas de A à Z pour importer, créer les proxys, monter, et exporter en pleine qualité depuis un HDD.",
+detail:`<p><strong>TON WORKFLOW HDD EN 8 ÉTAPES :</strong></p>
+<div class="drone-pipeline">
+<div class="drone-pipe-step"><span class="drone-pipe-n">1</span><div><div class="drone-pipe-txt"><strong>Copie tes rushes</strong> de la carte SD vers le HDD</div><div class="drone-pipe-app">Finder → Glisse le dossier DCIM vers ton LaCie Rugged USB-C</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">2</span><div><div class="drone-pipe-txt"><strong>Crée ta bibliothèque FCP sur le HDD</strong></div><div class="drone-pipe-app">FCP → Fichier → Nouveau → Bibliothèque → Enregistrer sur le LaCie</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">3</span><div><div class="drone-pipe-txt"><strong>Importe avec proxys activés</strong></div><div class="drone-pipe-app">Cmd+I → Sélectionne tes rushes → EN BAS : coche "Créer des médias proxy" → Import</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">4</span><div><div class="drone-pipe-txt"><strong>Attends que les proxys se créent</strong> (quelques minutes)</div><div class="drone-pipe-app">Indicateur en haut à gauche de FCP (roue qui tourne). Tu peux commencer à dérusher pendant ce temps</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">5</span><div><div class="drone-pipe-txt"><strong>Bascule en mode Proxy pour le montage</strong></div><div class="drone-pipe-app">Menu : Vue → Qualité de lecture → Proxy (ou raccourci personnalisé)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">6</span><div><div class="drone-pipe-txt"><strong>Monte normalement</strong> — tout est fluide !</div><div class="drone-pipe-app">Dérushage, montage, musique, effets, titres — tout comme d'habitude</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">7</span><div><div class="drone-pipe-txt"><strong>Pour l'étalonnage : bascule en Optimisée/Originale</strong></div><div class="drone-pipe-app">Vue → Qualité de lecture → Optimisée/originale (pour voir les vraies couleurs)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">8</span><div><div class="drone-pipe-txt"><strong>Exporte</strong> — FCP utilise automatiquement les originaux 4K</div><div class="drone-pipe-app">Cmd+E → Export normal. Peu importe si tu étais en mode Proxy, l'export est TOUJOURS en pleine qualité</div></div></div>
+</div>
+
+<p><strong>ASTUCE IMPORTANTE POUR L'EXPORT SUR HDD :</strong> L'export sera plus lent que sur un SSD (le HDD écrit lentement). Pour une vidéo de 3 minutes en 4K, compte 5-10 minutes d'export au lieu de 1-2 minutes sur SSD. C'est normal, sois patient.</p>
+
+<p><strong>NETTOYAGE APRÈS EXPORT :</strong></p>
+<p>Quand ton projet est terminé et uploadé, tu peux supprimer les proxys pour libérer de l'espace :<br>
+Clic droit sur la bibliothèque dans le navigateur → Supprimer les fichiers proxy générés.<br>
+Les originaux restent intacts. Tu libères environ 80% de l'espace pris par les proxys.</p>`,
+shortcuts:[
+["Cmd+I","Import (cocher 'Créer des médias proxy' en bas)"],
+["Vue > Qualité de lecture > Proxy","Basculer en mode proxy pour monter"],
+["Vue > Qualité de lecture > Optimisée/originale","Revenir aux originaux (étalonnage + vérification)"],
+["Cmd+E","Export (toujours en pleine qualité, quel que soit le mode de lecture)"]
+],
+tips:[
+{type:"pro",text:"Tu peux basculer entre Proxy et Original à tout moment pendant le montage. Proxy pour monter vite, Original pour vérifier un plan en détail ou étalonner précisément."},
+{type:"warn",text:"NE PAS faire l'étalonnage en mode Proxy. Les couleurs des proxys sont approximatives. Bascule en Optimisée/Originale pour l'étape couleur, même si ça rame un peu."},
+{type:"pro",text:"Si la lecture rame en Original pendant l'étalonnage, FCP peut rendre le plan en arrière-plan. Appuie sur Ctrl+R (Render selection) et attends quelques secondes. Après le rendu, la lecture sera fluide."},
+{type:"you",text:"Ton M4 Max est surpuissant côté processeur. Le goulot d'étranglement c'est UNIQUEMENT la vitesse de lecture du HDD. Les proxys éliminent ce problème."}
+]
+}
+]
+},
+// ═══════════════════════════════════════════
+// CHAPITRE 13 : EXEMPLE — VIDÉO CINÉMATIQUE DRONE
+// ═══════════════════════════════════════════
+{
+id:13,title:"Exemple : vidéo cinématique drone",color:"c9",
+desc:"Un tuto complet pas à pas pour créer ta première vidéo cinématique avec le Mavic 4 Pro. Du réglage du drone jusqu'à l'export final. Style sobre, beau, pro. Pas de surenchère d'effets, juste un résultat clean et élégant.",
+lessons:[
+{
+title:"ÉTAPE 1 — Réglages drone avant le vol",emoji:"🚁",
+sum:"Les réglages exacts à mettre sur le Mavic 4 Pro pour filmer des plans cinématiques qui se montent facilement.",
+detail:`<p><strong>OBJECTIF :</strong> Filmer 8-12 plans variés en 10-15 minutes de vol pour monter une vidéo cinématique de 60-90 secondes.</p>
+
+<p><strong>RÉGLAGES DRONE :</strong></p>
+<div class="drone-grid">
+<div class="drone-card">
+<div class="drone-card-title"><span>🎬</span> Plans normaux (70% du vol)</div>
+<div class="drone-spec"><span class="drone-spec-key">Résolution</span><span class="drone-spec-val">4K 3840×2160</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Framerate</span><span class="drone-spec-val">25 fps</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Shutter</span><span class="drone-spec-val">1/50s</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Profil</span><span class="drone-spec-val">D-Log M</span></div>
+<div class="drone-spec"><span class="drone-spec-key">ISO</span><span class="drone-spec-val">100</span></div>
+<div class="drone-spec"><span class="drone-spec-key">WB</span><span class="drone-spec-val">5500K (soleil)</span></div>
+<div class="drone-spec"><span class="drone-spec-key">ND</span><span class="drone-spec-val">ND16-32 (selon soleil)</span></div>
+</div>
+<div class="drone-card">
+<div class="drone-card-title"><span>🐌</span> Plans slow motion (30% du vol)</div>
+<div class="drone-spec"><span class="drone-spec-key">Résolution</span><span class="drone-spec-val">4K 3840×2160</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Framerate</span><span class="drone-spec-val">60 fps</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Shutter</span><span class="drone-spec-val">1/120s</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Profil</span><span class="drone-spec-val">D-Log M</span></div>
+<div class="drone-spec"><span class="drone-spec-key">ISO</span><span class="drone-spec-val">100</span></div>
+<div class="drone-spec"><span class="drone-spec-key">WB</span><span class="drone-spec-val">5500K (soleil)</span></div>
+<div class="drone-spec"><span class="drone-spec-key">ND</span><span class="drone-spec-val">ND8-16 (selon soleil)</span></div>
+</div>
+</div>
+
+<p><strong>LES 8 TYPES DE PLANS À FILMER :</strong></p>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">1. Plan d'ouverture — Reveal (25fps)</div><div class="drone-scenario-specs">Vole droit vers l'avant en montant lentement. Le sujet apparaît progressivement.</div><div class="drone-scenario-note">C'est le plan "wow" qui ouvre ta vidéo. 8-10 secondes minimum, mouvement très lent.</div></div>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">2. Plan large — Establishing shot (25fps)</div><div class="drone-scenario-specs">Monte haut (80-120m), montre l'ensemble du lieu. Rotation lente du drone sur place.</div><div class="drone-scenario-note">Donne le contexte géographique. Idéal en 2ème ou 3ème plan de la vidéo.</div></div>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">3. Plan latéral — Tracking (25fps)</div><div class="drone-scenario-specs">Vole latéralement le long d'un sujet (bâtiment, route, terrain). Gimbal tourné vers le sujet.</div><div class="drone-scenario-note">Mouvement fluide et constant. La vitesse du drone donne le rythme.</div></div>
+<div class="drone-scenario sc-slow"><div class="drone-scenario-title">4. Plan rapproché — Low pass (60fps)</div><div class="drone-scenario-specs">Vole bas (5-10m) et passe au-dessus du sujet. Gimbal pointé vers le bas ou légèrement vers l'avant.</div><div class="drone-scenario-note">En 60fps pour un ralenti doux au montage. Le mouvement proche crée de la dynamique.</div></div>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">5. Plan orbit — Rotation autour du sujet (25fps)</div><div class="drone-scenario-specs">Utilise le mode Orbit ou vole manuellement en cercle autour du sujet principal.</div><div class="drone-scenario-note">Plan très cinématique. Garde le sujet centré, mouvement lent et régulier.</div></div>
+<div class="drone-scenario sc-slow"><div class="drone-scenario-title">6. Plan détail — Top down (60fps)</div><div class="drone-scenario-specs">Gimbal à 90° vers le bas. Vole lentement au-dessus d'éléments intéressants (textures, motifs).</div><div class="drone-scenario-note">En 60fps pour un ralenti sur les détails. Donne un look documentaire/artistique.</div></div>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">7. Plan de transition — Pull back (25fps)</div><div class="drone-scenario-specs">Recule en montant. Le sujet s'éloigne et le paysage se révèle.</div><div class="drone-scenario-note">Parfait pour marquer la fin d'une séquence ou une transition.</div></div>
+<div class="drone-scenario sc-cine"><div class="drone-scenario-title">8. Plan de fermeture — Sunset/Golden (25fps)</div><div class="drone-scenario-specs">Le dernier plan. Coucher de soleil, lumière dorée, plan large contemplatif.</div><div class="drone-scenario-note">Réduis le ND (ND4 ou sans), ouvre à f/2.8, ISO 100-200. Mouvement minimal.</div></div>`,
+tips:[
+{type:"pro",text:"Règle d'or du cinématique drone : LENTEUR. Tous les mouvements doivent être lents et fluides. Si tu penses que c'est assez lent, ralentis encore. La vitesse n°1 des débutants c'est de bouger trop vite."},
+{type:"pro",text:"Filme chaque plan pendant 10-15 secondes minimum, même si tu n'en gardes que 3-4 secondes au montage. Ça te donne de la marge pour choisir le meilleur moment."},
+{type:"you",text:"Pour Le P3 : les plans orbit autour du court de padel et les top-down sur les joueurs sont hyper cinématiques. Combine avec un tracking latéral le long du club."}
+]
+},
+{
+title:"ÉTAPE 2 — Import et dérushage dans FCP",emoji:"📥",
+sum:"Importer les rushes depuis le HDD avec proxys, dérusher et sélectionner les meilleurs plans.",
+detail:`<p><strong>IMPORT AVEC PROXYS (workflow HDD) :</strong></p>
+<div class="drone-pipeline">
+<div class="drone-pipe-step"><span class="drone-pipe-n">1</span><div><div class="drone-pipe-txt">Copie les rushes de la carte SD vers ton HDD LaCie</div><div class="drone-pipe-app">Finder → Glisse DCIM vers LaCie/01_Rushes/2026-04_Cine_Padel/</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">2</span><div><div class="drone-pipe-txt">Ouvre FCP, crée ou ouvre ta bibliothèque sur le HDD</div><div class="drone-pipe-app">Fichier → Nouveau → Bibliothèque (sur le LaCie)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">3</span><div><div class="drone-pipe-txt">Crée un événement et importe AVEC proxys</div><div class="drone-pipe-app">Option+N → "Cine_Padel" → Cmd+I → Coche "Créer médias proxy" → Import</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">4</span><div><div class="drone-pipe-txt">Bascule en mode Proxy</div><div class="drone-pipe-app">Vue → Qualité de lecture → Proxy</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">5</span><div><div class="drone-pipe-txt">Dérushe : F pour les favoris, Delete pour les rejetés</div><div class="drone-pipe-app">J/K/L pour naviguer vite → F sur les bons plans → I/O pour les points in/out</div></div></div>
+</div>
+
+<p><strong>SÉLECTION DES PLANS :</strong> Pour une vidéo de 60-90 secondes, sélectionne 8-12 plans de 3-6 secondes chacun. Choisis la variété : alterner large/serré, statique/mouvement, 25fps/60fps.</p>`,
+tips:[
+{type:"pro",text:"Au dérushage, ne garde que les plans où le mouvement est fluide du début à la fin. Un plan cinématique avec une secousse ou un changement de direction brusque est inutilisable."},
+{type:"pro",text:"Tague tes plans avec des mots-clés : 'reveal', 'orbit', 'topdown', 'slow', 'large'. Tu pourras filtrer facilement après."}
+]
+},
+{
+title:"ÉTAPE 3 — Montage dans la timeline",emoji:"🎬",
+sum:"Assembler les plans dans l'ordre narratif, caler sur la musique, ajouter les ralentis. Le montage cinématique étape par étape.",
+detail:`<p><strong>PRÉPARER LE PROJET :</strong></p>
+<p>Cmd+N → 3840×2160 (4K) → 25fps → Nom : "Cine_Padel_YT"</p>
+
+<p><strong>CHOISIR LA MUSIQUE D'ABORD :</strong></p>
+<p>C'est la règle n°1 du montage cinématique. La musique dicte le rythme et l'émotion. Choisis un morceau calme, épique ou contemplatif (selon l'ambiance voulue). Place-le dans la timeline en premier.</p>
+
+<p><strong>STRUCTURE D'UNE VIDÉO CINÉMATIQUE DE 60-90 SECONDES :</strong></p>
+<div class="drone-pipeline">
+<div class="drone-pipe-step"><span class="drone-pipe-n">1</span><div><div class="drone-pipe-txt"><strong>0-5s : Plan d'ouverture (Reveal)</strong></div><div class="drone-pipe-app">Le plan le plus impactant. Fade in depuis le noir (Cmd+T pour cross dissolve depuis le noir)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">2</span><div><div class="drone-pipe-txt"><strong>5-15s : Plans larges (contexte)</strong></div><div class="drone-pipe-app">2-3 plans larges qui montrent le lieu. Cuts calés sur les temps forts de la musique (M pour marquer les beats)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">3</span><div><div class="drone-pipe-txt"><strong>15-40s : Plans de détail + mouvements</strong></div><div class="drone-pipe-app">Alterner tracking, orbit, top-down. Insérer les plans 60fps ralentis ici (Cmd+R → 41% pour slow x2.4)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">4</span><div><div class="drone-pipe-txt"><strong>40-55s : Climax émotionnel</strong></div><div class="drone-pipe-app">Les plans les plus beaux, le moment le plus intense de la musique. Speed ramp sur un plan dynamique</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">5</span><div><div class="drone-pipe-txt"><strong>55-70s : Respiration + plan de fermeture</strong></div><div class="drone-pipe-app">Retour au calme. Plan large ou golden hour. Fade out vers le noir. Musique qui s'éteint doucement</div></div></div>
+</div>
+
+<p><strong>RÈGLES DU MONTAGE CINÉMATIQUE :</strong></p>
+<p>• Durée des plans : 3-6 secondes chacun (pas plus court, c'est du ciné pas un Reel)<br>
+• Transitions : 90% de cuts secs, 10% de cross dissolves longs (1-2s) pour les moments contemplatifs<br>
+• Pas de texte, pas de titre pendant la vidéo (juste un titre à la fin éventuellement)<br>
+• Pas de SFX whoosh ou impact (c'est pour les Reels, pas le ciné)<br>
+• La musique est le SEUL élément audio (pas de son ambiant du drone sauf choix artistique)</p>`,
+tips:[
+{type:"pro",text:"Pour les ralentis : sélectionne un clip 60fps → Cmd+R → clique sur la barre de vitesse → Lent → 40%. FCP crée un ralenti x2.5 natif parfaitement fluide."},
+{type:"pro",text:"Le fade in depuis le noir au début et le fade out vers le noir à la fin sont les signatures du style cinématique. Cmd+T sur le premier clip pour ajouter le dissolve."},
+{type:"you",text:"Pour Le P3 : une vidéo ciné drone du club au coucher du soleil, musique épique douce, ralentis sur les frappes vues du ciel. C'est du contenu premium pour le compte Instagram."}
+]
+},
+{
+title:"ÉTAPE 4 — Étalonnage cinématique",emoji:"🎨",
+sum:"Le pipeline couleur complet pour un rendu ciné à partir du D-Log M. LUT, correction, look créatif.",
+detail:`<p><strong>BASCULE EN MODE ORIGINAL POUR L'ÉTALONNAGE :</strong></p>
+<p>Vue → Qualité de lecture → Optimisée/Originale. Les proxys ne montrent pas les vraies couleurs.</p>
+
+<p><strong>PIPELINE COULEUR EN 3 COUCHES :</strong></p>
+<div class="drone-pipeline">
+<div class="drone-pipe-step"><span class="drone-pipe-n">1</span><div><div class="drone-pipe-txt"><strong>Couche 1 : LUT de conversion</strong></div><div class="drone-pipe-app">Cmd+5 → "Custom LUT" → Glisse sur le clip → Inspecteur → Choisir DJI D-Log M to Rec.709.cube → Mix = 100%</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">2</span><div><div class="drone-pipe-txt"><strong>Couche 2 : Correction primaire</strong></div><div class="drone-pipe-app">Cmd+6 → Color Wheels → Balance blancs (roue tons moyens) → Noirs à 0-5 IRE → Blancs à 90-95 IRE (Cmd+7 pour Scopes)</div></div></div>
+<div class="drone-pipe-step"><span class="drone-pipe-n">3</span><div><div class="drone-pipe-txt"><strong>Couche 3 : Look cinématique</strong></div><div class="drone-pipe-app">Inspecteur couleur → "+" → Color Curves → Courbe en S douce → Ombres légèrement bleues → Hautes lumières légèrement chaudes</div></div></div>
+</div>
+
+<p><strong>LE LOOK CINÉMATIQUE SOBRE :</strong></p>
+<p>• <strong>Contraste :</strong> Courbe en S douce dans les Color Curves. Pas agressif, juste un léger creux dans les ombres et une légère bosse dans les hautes lumières.<br>
+• <strong>Ombres :</strong> Légère teinte bleu-teal (Color Wheels → roue des ombres, tire doucement vers le bleu-cyan). Très subtil.<br>
+• <strong>Hautes lumières :</strong> Légère teinte dorée/ambre (Color Wheels → roue des hautes lumières, tire vers l'orange-jaune). Très subtil aussi.<br>
+• <strong>Saturation :</strong> Réduis légèrement (-5 à -10%). Le cinématique est moins saturé que le "lifestyle".<br>
+• <strong>Noirs relevés (optionnel) :</strong> Dans les Color Curves, remonte le point le plus bas de 2-3%. Les noirs ne sont plus purs noirs mais gris très foncé. Donne un look film analogique.</p>
+
+<p><strong>COPIER L'ÉTALONNAGE SUR TOUS LES PLANS :</strong></p>
+<p>Sélectionne le clip étalonné → Cmd+C → Sélectionne tous les autres clips → Cmd+Option+V → Coche uniquement "Effets" et "Corrections de couleur" → OK. Ajuste ensuite l'exposition clip par clip si nécessaire (certains plans sont plus sombres/clairs que d'autres).</p>`,
+shortcuts:[
+["Cmd+5","Navigateur d'effets (pour trouver Custom LUT)"],
+["Cmd+6","Inspecteur couleur"],
+["Cmd+7","Scopes (Waveform + Vectorscope)"],
+["Cmd+C puis Cmd+Option+V","Copier/coller les attributs couleur"],
+["Ctrl+Cmd+C","Copier uniquement les réglages couleur"],
+["Ctrl+Cmd+V","Coller uniquement les réglages couleur"]
+],
+tips:[
+{type:"pro",text:"La clé du look cinématique : la SUBTILITÉ. Si tu vois clairement que l'image est teintée en bleu/orange, c'est trop fort. Le spectateur ne doit pas remarquer l'étalonnage, juste sentir que c'est beau."},
+{type:"warn",text:"Si la lecture rame en mode Original pendant l'étalonnage (normal sur HDD), sélectionne le clip et fais Ctrl+R (Render). FCP pré-calcule le rendu et ensuite la lecture est fluide."},
+{type:"pro",text:"Astuce pro : étalonne UN clip de référence, puis colle les réglages sur tous les autres. Ensuite, ajuste uniquement l'exposition sur chaque clip individuellement. Ça garantit une cohérence de style."}
+]
+},
+{
+title:"ÉTAPE 5 — Export final",emoji:"📤",
+sum:"Les réglages d'export pour YouTube et Instagram. Les dernières vérifications avant de publier.",
+detail:`<p><strong>VÉRIFICATION FINALE :</strong></p>
+<p>Avant d'exporter, regarde ta vidéo EN ENTIER une dernière fois. Vérifie :<br>
+☐ Pas de saccade ou de frame noire entre les plans<br>
+☐ L'étalonnage est cohérent d'un plan à l'autre<br>
+☐ Le son (musique) est bien mixé, fade in/out propre<br>
+☐ Le premier et dernier plan sont les plus forts</p>
+
+<p><strong>EXPORT YOUTUBE (4K) :</strong></p>
+<div class="drone-grid">
+<div class="drone-card">
+<div class="drone-card-title"><span>▶️</span> Réglages YouTube</div>
+<div class="drone-spec"><span class="drone-spec-key">Format</span><span class="drone-spec-val">Fichier master</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Codec</span><span class="drone-spec-val">H.264</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Résolution</span><span class="drone-spec-val">3840×2160</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Framerate</span><span class="drone-spec-val">25 fps</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Qualité</span><span class="drone-spec-val">Haute / Meilleure</span></div>
+</div>
+<div class="drone-card">
+<div class="drone-card-title"><span>📱</span> Réglages Reel Instagram</div>
+<div class="drone-spec"><span class="drone-spec-key">Format</span><span class="drone-spec-val">Fichier master</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Codec</span><span class="drone-spec-val">H.264</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Résolution</span><span class="drone-spec-val">1080×1920</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Framerate</span><span class="drone-spec-val">25 fps</span></div>
+<div class="drone-spec"><span class="drone-spec-key">Qualité</span><span class="drone-spec-val">Haute / Meilleure</span></div>
+</div>
+</div>
+
+<p><strong>RAPPEL IMPORTANT :</strong> Peu importe que tu aies monté en mode Proxy, l'export utilise TOUJOURS les fichiers originaux 4K. Vérifie dans le menu Vue que tu es en "Optimisée/Originale" avant d'exporter (par précaution, même si FCP gère ça automatiquement).</p>
+
+<p><strong>APRÈS L'EXPORT :</strong></p>
+<p>☐ Regarde l'export final en entier sur ton Mac ET sur ton iPhone<br>
+☐ Upload YouTube depuis le Mac<br>
+☐ AirDrop le Reel vers l'iPhone, upload Instagram depuis l'iPhone<br>
+☐ Une fois uploadé : clic droit bibliothèque → Supprimer fichiers proxy et de rendu générés</p>`,
+tips:[
+{type:"pro",text:"L'export sur HDD prend plus de temps que sur SSD. Pour un ciné de 90 secondes en 4K, compte 5-15 minutes. Lance l'export et va te faire un café."},
+{type:"you",text:"AirDrop le Reel via l'app Fichiers (pas Photos) pour conserver la qualité D-Log M étalonnée. Photos peut recompresser."},
+{type:"pro",text:"Astuce YouTube : upload en non répertorié, attends 24-48h que YouTube finisse le traitement 4K, puis passe en public. Les premières heures la qualité est dégradée."}
+]
+}
+]
 }
 ];
 
@@ -1966,7 +2204,9 @@ const PRIO={
 '7-0':'important','7-9':'important','7-10':'essential','7-12':'important',
 '8-0':'essential','8-1':'important','8-2':'essential',
 '10-0':'essential','10-1':'essential','10-2':'essential',
-'11-0':'essential','11-1':'essential','11-2':'important','11-3':'essential','11-4':'essential'
+'11-0':'essential','11-1':'essential','11-2':'important','11-3':'essential','11-4':'essential',
+'12-0':'essential','12-1':'essential',
+'13-0':'essential','13-1':'essential','13-2':'essential','13-3':'essential','13-4':'essential'
 };
 const PRIO_LABEL={essential:'ESSENTIEL',important:'IMPORTANT',bonus:'BONUS'};
 const PRIO_CLS={essential:'badge-essential',important:'badge-important',bonus:'badge-bonus'};
@@ -2443,6 +2683,123 @@ svg:`<svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" style="font-f
 <text x="562" y="316" fill="#5a5a72" font-size="8">Paysage • 15-20 Mbps</text>
 </svg>`,
 label:"Vue d'ensemble : ce que tu filmes → FCP → ce que tu exportes"
+},
+
+// HDD Proxy workflow animation (12-1)
+'12-1': {
+anim:{id:'proxy',html:`<div class="anim-demo"><div class="anim-stage" id="proxy-stage" style="height:160px">
+<svg viewBox="0 0 700 140" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+<text x="20" y="22" fill="#8888a5" font-size="10" font-family="DM Sans" font-weight="600">FLUX DE DONNÉES — Montage sur HDD avec Proxys</text>
+<!-- HDD -->
+<rect x="20" y="40" width="110" height="50" rx="6" fill="#14141f" stroke="#ff9100" stroke-width="1.5"/>
+<text x="36" y="60" fill="#ff9100" font-size="9" font-weight="700" font-family="DM Sans">💾 HDD LaCie</text>
+<text x="36" y="74" fill="#5a5a72" font-size="7" font-family="DM Sans">Rushes 4K originaux</text>
+<text x="36" y="84" fill="#5a5a72" font-size="7" font-family="DM Sans">130 Mo/s 🐢</text>
+<!-- Arrow 1 -->
+<line x1="135" y1="65" x2="175" y2="45" stroke="#ffd740" stroke-width="1.5" stroke-dasharray="100" stroke-dashoffset="100"><animate attributeName="stroke-dashoffset" from="100" to="0" dur="1s" begin="0.3s" fill="freeze"/></line>
+<line x1="135" y1="65" x2="175" y2="85" stroke="#4d6fff" stroke-width="1.5" stroke-dasharray="100" stroke-dashoffset="100"><animate attributeName="stroke-dashoffset" from="100" to="0" dur="1s" begin="0.3s" fill="freeze"/></line>
+<!-- FCP creates proxys -->
+<rect x="180" y="30" width="120" height="26" rx="4" fill="rgba(255,215,64,.1)" stroke="#ffd740" stroke-width="1" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/></rect>
+<text x="192" y="48" fill="#ffd740" font-size="8" font-weight="600" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/>⚡ Proxys (légers)</text>
+<rect x="180" y="70" width="120" height="26" rx="4" fill="rgba(77,111,255,.1)" stroke="#4d6fff" stroke-width="1" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/></rect>
+<text x="192" y="88" fill="#4d6fff" font-size="8" font-weight="600" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/>🎬 Originaux 4K</text>
+<!-- Arrow to montage -->
+<line x1="305" y1="43" x2="360" y2="55" stroke="#ffd740" stroke-width="2" stroke-dasharray="60" stroke-dashoffset="60"><animate attributeName="stroke-dashoffset" from="60" to="0" dur="0.8s" begin="1.8s" fill="freeze"/></line>
+<!-- MONTAGE -->
+<rect x="365" y="38" width="130" height="44" rx="6" fill="#14141f" stroke="#00e676" stroke-width="2" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.4s" fill="freeze"/></rect>
+<text x="385" y="56" fill="#00e676" font-size="9" font-weight="700" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.4s" fill="freeze"/>🎬 MONTAGE</text>
+<text x="385" y="70" fill="#8888a5" font-size="7" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.4s" fill="freeze"/>Fluide avec proxys ✓</text>
+<!-- Arrow to export -->
+<line x1="500" y1="60" x2="540" y2="60" stroke="#00e676" stroke-width="2" stroke-dasharray="50" stroke-dashoffset="50"><animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="3s" fill="freeze"/></line>
+<!-- EXPORT -->
+<rect x="545" y="35" width="130" height="50" rx="6" fill="#14141f" stroke="#b388ff" stroke-width="2" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/></rect>
+<text x="563" y="55" fill="#b388ff" font-size="9" font-weight="700" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>📤 EXPORT</text>
+<text x="563" y="68" fill="#8888a5" font-size="7" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>Utilise les ORIGINAUX</text>
+<text x="563" y="78" fill="#00e676" font-size="7" font-family="DM Sans" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>4K pleine qualité ✓</text>
+<!-- Arrow from originals to export -->
+<path d="M240,96 C240,120 545,120 545,75" fill="none" stroke="#4d6fff" stroke-width="1.5" stroke-dasharray="4" stroke-dashoffset="200"><animate attributeName="stroke-dashoffset" from="200" to="0" dur="1s" begin="3.5s" fill="freeze"/></path>
+<text x="350" y="125" fill="#4d6fff" font-size="7" font-family="IBM Plex Mono" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="4s" fill="freeze"/>↑ Les originaux 4K sont utilisés à l'export, pas les proxys</text>
+</svg>
+</div><div class="anim-label"><span>🎬</span> Animation : Le flux Proxy — tu montes léger, tu exportes en pleine qualité<button class="anim-replay" onclick="replayAnim('proxy-stage')">↻ Rejouer</button></div></div>`}
+},
+
+// Cinematic structure animation (13-2)
+'13-2': {
+anim:{id:'cinestruc',html:`<div class="anim-demo"><div class="anim-stage" id="cine-stage" style="height:200px">
+<svg viewBox="0 0 700 180" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+<text x="20" y="20" fill="#8888a5" font-size="10" font-family="DM Sans" font-weight="600">STRUCTURE D'UNE VIDÉO CINÉMATIQUE — 60 à 90 secondes</text>
+<!-- Timeline bar -->
+<rect x="20" y="40" width="660" height="10" rx="5" fill="#252538"/>
+<!-- Sections with progressive animation -->
+<rect x="20" y="40" width="66" height="10" rx="5" fill="#4d6fff" opacity="0"><animate attributeName="opacity" from="0" to=".7" dur="0.4s" begin="0.5s" fill="freeze"/></rect>
+<rect x="86" y="40" width="132" height="10" rx="5" fill="#00e676" opacity="0"><animate attributeName="opacity" from="0" to=".6" dur="0.4s" begin="1s" fill="freeze"/></rect>
+<rect x="218" y="40" width="220" height="10" rx="5" fill="#ff9100" opacity="0"><animate attributeName="opacity" from="0" to=".6" dur="0.4s" begin="1.5s" fill="freeze"/></rect>
+<rect x="438" y="40" width="132" height="10" rx="5" fill="#ff5252" opacity="0"><animate attributeName="opacity" from="0" to=".7" dur="0.4s" begin="2s" fill="freeze"/></rect>
+<rect x="570" y="40" width="110" height="10" rx="5" fill="#b388ff" opacity="0"><animate attributeName="opacity" from="0" to=".6" dur="0.4s" begin="2.5s" fill="freeze"/></rect>
+<!-- Labels -->
+<text x="53" y="70" fill="#4d6fff" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.7s" fill="freeze"/>OUVERTURE</text>
+<text x="53" y="82" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.7s" fill="freeze"/>0-5s • Reveal</text>
+<text x="53" y="92" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.7s" fill="freeze"/>Fade in noir</text>
+
+<text x="152" y="70" fill="#00e676" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/>CONTEXTE</text>
+<text x="152" y="82" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/>5-15s • Plans larges</text>
+<text x="152" y="92" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.2s" fill="freeze"/>25fps • Cuts musicaux</text>
+
+<text x="328" y="70" fill="#ff9100" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.7s" fill="freeze"/>DÉVELOPPEMENT</text>
+<text x="328" y="82" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.7s" fill="freeze"/>15-40s • Détails + mouvements</text>
+<text x="328" y="92" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.7s" fill="freeze"/>Slows 60fps + Orbit + Top-down</text>
+
+<text x="504" y="70" fill="#ff5252" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.2s" fill="freeze"/>CLIMAX</text>
+<text x="504" y="82" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.2s" fill="freeze"/>40-55s • Plans les + beaux</text>
+<text x="504" y="92" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.2s" fill="freeze"/>Pic musical + Speed ramp</text>
+
+<text x="625" y="70" fill="#b388ff" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.7s" fill="freeze"/>FERMETURE</text>
+<text x="625" y="82" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.7s" fill="freeze"/>55-70s • Retour au calme</text>
+<text x="625" y="92" fill="#5a5a72" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.7s" fill="freeze"/>Golden hour • Fade out noir</text>
+
+<!-- Intensity curve -->
+<text x="20" y="115" fill="#8888a5" font-size="8" font-family="DM Sans" font-weight="600" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.2s" fill="freeze"/>COURBE D'INTENSITÉ :</text>
+<polyline points="20,165 86,155 152,150 260,140 370,135 440,118 504,110 550,130 600,150 660,165" fill="none" stroke="#ff5252" stroke-width="2" stroke-dasharray="700" stroke-dashoffset="700"><animate attributeName="stroke-dashoffset" from="700" to="0" dur="2s" begin="3.5s" fill="freeze"/></polyline>
+<circle cx="504" cy="110" r="5" fill="#ff5252" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="4.5s" fill="freeze"/></circle>
+<text x="510" y="106" fill="#ff5252" font-size="7" font-family="DM Sans" font-weight="600" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="4.5s" fill="freeze"/>← Pic émotionnel</text>
+</svg>
+</div><div class="anim-label"><span>🎬</span> Animation : Structure cinématique + courbe d'intensité émotionnelle<button class="anim-replay" onclick="replayAnim('cine-stage')">↻ Rejouer</button></div></div>`}
+},
+
+// Étalonnage pipeline animation (13-3)
+'13-3': {
+anim:{id:'etalon',html:`<div class="anim-demo"><div class="anim-stage" id="etalon-stage" style="height:130px">
+<svg viewBox="0 0 700 110" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+<text x="20" y="18" fill="#8888a5" font-size="10" font-family="DM Sans" font-weight="600">PIPELINE ÉTALONNAGE — D-Log M vers Look Cinématique</text>
+<!-- Step 1: D-Log M flat -->
+<rect x="20" y="32" width="130" height="60" rx="6" fill="#555" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="0.3s" fill="freeze"/></rect>
+<text x="85" y="56" fill="#aaa" font-size="9" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.5s" fill="freeze"/>Image D-Log M</text>
+<text x="85" y="72" fill="#888" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.5s" fill="freeze"/>Plate, grise, délavée</text>
+<text x="85" y="82" fill="#666" font-size="7" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.5s" fill="freeze"/>(c'est normal !)</text>
+<!-- Arrow -->
+<text x="162" y="62" fill="#ffd740" font-size="14" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="1s" fill="freeze"/>→</text>
+<!-- Step 2: After LUT -->
+<rect x="182" y="32" width="130" height="60" rx="6" fill="#14141f" stroke="#ff5252" stroke-width="1.5" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.3s" fill="freeze"/></rect>
+<text x="247" y="50" fill="#ff5252" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.5s" fill="freeze"/>+ LUT Rec.709</text>
+<text x="247" y="64" fill="#b8b8d0" font-size="8" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.5s" fill="freeze"/>Couleurs normales</text>
+<text x="247" y="78" fill="#8888a5" font-size="7" font-family="IBM Plex Mono" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="1.5s" fill="freeze"/>Custom LUT = 100%</text>
+<!-- Arrow -->
+<text x="324" y="62" fill="#ffd740" font-size="14" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="2s" fill="freeze"/>→</text>
+<!-- Step 3: After correction -->
+<rect x="344" y="32" width="130" height="60" rx="6" fill="#14141f" stroke="#ffd740" stroke-width="1.5" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="2.3s" fill="freeze"/></rect>
+<text x="409" y="50" fill="#ffd740" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.5s" fill="freeze"/>+ Correction</text>
+<text x="409" y="64" fill="#b8b8d0" font-size="8" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.5s" fill="freeze"/>Expo + Blancs ajustés</text>
+<text x="409" y="78" fill="#8888a5" font-size="7" font-family="IBM Plex Mono" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.5s" fill="freeze"/>Color Wheels (Cmd+6)</text>
+<!-- Arrow -->
+<text x="486" y="62" fill="#ffd740" font-size="14" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3s" fill="freeze"/>→</text>
+<!-- Step 4: Final cinematic -->
+<rect x="506" y="32" width="170" height="60" rx="6" fill="linear-gradient(135deg,#1a2a4a,#2a1a2a)" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="3.3s" fill="freeze"/></rect>
+<rect x="506" y="32" width="170" height="60" rx="6" fill="#14141f" stroke="#00e676" stroke-width="2" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="3.3s" fill="freeze"/></rect>
+<text x="591" y="50" fill="#00e676" font-size="8" font-weight="700" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>+ Look Cinématique ✓</text>
+<text x="591" y="64" fill="#b8b8d0" font-size="8" font-family="DM Sans" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>Ombres bleues + Hauts dorés</text>
+<text x="591" y="78" fill="#8888a5" font-size="7" font-family="IBM Plex Mono" text-anchor="middle" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="3.5s" fill="freeze"/>Color Curves + Courbe en S</text>
+</svg>
+</div><div class="anim-label"><span>🎨</span> Animation : De l'image plate D-Log M au rendu cinématique final<button class="anim-replay" onclick="replayAnim('etalon-stage')">↻ Rejouer</button></div></div>`}
 }
 };
 
